@@ -8,6 +8,7 @@ import { registerVerificationModule } from "./modules/verification/index.js";
 import { registerPVSModule } from "./modules/pvs/index.js";
 import { registerCTPModule } from "./modules/ctp/index.js";
 import { registerSlashCommands } from "./commands.js";
+import { registerPanelCommands } from "./panels/index.js";
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -45,6 +46,7 @@ client.once("clientReady", async () => {
   });
 
   await registerSlashCommands(client);
+  await registerPanelCommands(client);
 });
 
 client.on("error", (err) => {
