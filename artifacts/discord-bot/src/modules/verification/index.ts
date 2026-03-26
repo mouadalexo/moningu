@@ -106,10 +106,6 @@ export function registerVerificationModule(client: Client) {
     if (!config) return;
 
     try {
-      if (config.unverifiedRoleId) {
-        await member.roles.add(config.unverifiedRoleId).catch(() => {});
-      }
-
       const overwrites: import("discord.js").OverwriteResolvable[] = [
         {
           id: guild.id,
@@ -318,13 +314,6 @@ export function registerVerificationModule(client: Client) {
     const disabledRow = buildVerificationButtons(true);
 
     if (customId === "verify_accept") {
-      if (targetMember) {
-        if (config.verifiedRoleId)
-          await targetMember.roles.add(config.verifiedRoleId).catch(() => {});
-        if (config.unverifiedRoleId)
-          await targetMember.roles.remove(config.unverifiedRoleId).catch(() => {});
-      }
-
       await interaction.message.edit({
         embeds: [
           EmbedBuilder.from(embed)
@@ -372,12 +361,6 @@ export function registerVerificationModule(client: Client) {
         }
       }
     } else if (customId === "verify_jail") {
-      if (targetMember && config.jailRoleId) {
-        await targetMember.roles.add(config.jailRoleId).catch(() => {});
-        if (config.unverifiedRoleId)
-          await targetMember.roles.remove(config.unverifiedRoleId).catch(() => {});
-      }
-
       await interaction.message.edit({
         embeds: [
           EmbedBuilder.from(embed)
