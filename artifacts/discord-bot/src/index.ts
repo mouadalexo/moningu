@@ -35,7 +35,7 @@ registerVerificationModule(client);
 registerPVSModule(client);
 registerCTPModule(client);
 
-client.once("ready", async () => {
+client.once("clientReady", async () => {
   console.log(`Night Stars Bot is online as ${client.user?.tag}`);
   console.log(`Serving ${client.guilds.cache.size} guild(s)`);
 

@@ -48,6 +48,48 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 - `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
 - `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
 
+## Night Stars Discord Bot
+
+The bot lives in `artifacts/discord-bot/` and runs via `pnpm --filter @workspace/discord-bot run dev`.
+
+### Three Modules
+
+**1. Private Voice System (PVS) — prefix `=`**
+- `=key @user` — toggle join permission for a user
+- `=clear keys` — remove all keys
+- `=see keys` — list users with access
+- `=rename Name` — rename the private voice
+- Auto-creates private voice when member joins the configured "create" voice channel
+- Responses are ephemeral-like (auto-delete after 10s)
+
+**2. Verification System**
+- On member join: assign Unverified role, create private text channel
+- Bot asks 5 questions sequentially
+- After all answers: post embed with answers to #verification-logs
+- Verificators click buttons: ✅ Accept / ❌ Deny / ⛓ Jail / 🎫 Open Ticket
+- Buttons disable after first click
+
+**3. Call to Play (CTP) — prefix `-`**
+- Member in voice channel types `-we need 1 player`
+- Bot checks category mapping, cooldown, then pings the game role
+- Per-category cooldowns tracked in DB
+
+### Slash Commands (Admin)
+- `/setup-verification` — configure roles and channels
+- `/setup-pvs` — configure PVS create channel and category
+- `/setup-ctp` — configure category → game → role mapping
+- `/ctp-list` — list all CTP configs
+- `/ctp-remove` — remove a CTP config
+- `/ctp-toggle` — enable/disable CTP for a category
+
+### Database Tables
+- `bot_config` — per-guild configuration (roles, channels)
+- `ctp_categories` — category → game mappings
+- `ctp_cooldowns` — CTP cooldown tracking
+- `pvs_voices` — private voice channel ownership
+- `pvs_keys` — users with access to private voices
+- `verification_sessions` — active verification states
+
 ## Packages
 
 ### `artifacts/api-server` (`@workspace/api-server`)
