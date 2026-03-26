@@ -5,6 +5,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   ButtonInteraction,
+  ChannelSelectMenuBuilder,
   ChannelSelectMenuInteraction,
   RoleSelectMenuInteraction,
   ModalSubmitInteraction,
@@ -13,6 +14,8 @@ import {
   Routes,
   SlashCommandBuilder,
   ChatInputCommandInteraction,
+  TextChannel,
+  ChannelType,
 } from "discord.js";
 import {
   openVerifyPanel,
@@ -34,10 +37,11 @@ import {
   handleCtpPanelSave,
   handleCtpPanelReset,
 } from "./ctp.js";
+import { deployVerificationPanel } from "../modules/verification/index.js";
 
 function buildMainPanel() {
   const embed = new EmbedBuilder()
-    .setColor(0x2c2f33)
+    .setColor(0x1a1a2e)
     .setTitle("⭐ Night Stars — Control Panel")
     .setDescription(
       "Welcome to the Night Stars Bot control panel.\nSelect a system below to configure it."
@@ -45,7 +49,7 @@ function buildMainPanel() {
     .addFields(
       {
         name: "🛡️ Verification System",
-        value: "Configure verificator roles, logs channel, verification and assistance categories.",
+        value: "Configure roles, logs channel, and categories. Post the panel in a channel.",
       },
       {
         name: "🎙️ Private Voice System (PVS)",
@@ -58,7 +62,7 @@ function buildMainPanel() {
     )
     .setFooter({ text: "Only staff with Administrator permission can use this panel." });
 
-  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+  const row1 = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("panel_open_verify")
       .setLabel("🛡️ Verification Setup")
@@ -73,7 +77,35 @@ function buildMainPanel() {
       .setStyle(ButtonStyle.Success)
   );
 
-  return { embed, row };
+  const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder()
+      .setCustomId("panel_deploy_verify")
+      .setLabel("📌 Post Verification Panel")
+      .setStyle(ButtonStyle.Danger)
+  );
+
+  return { embed, rows: [row1, row2] };
+}
+
+function buildDeployChannelSelect() {
+  return {
+    embed: new EmbedBuilder()
+      .setColor(0x1a1a2e)
+      .setTitle("📌 Post Verification Panel")
+      .setDescription(
+        "Select the channel where the verification panel will be permanently posted.\n\n" +
+        "Members who join will need to see this channel and click **Start Verification** to submit their answers."
+      )
+      .setFooter({ text: "The panel will be posted immediately." }),
+    row: new ActionRowBuilder<ChannelSelectMenuBuilder>().addComponents(
+      new ChannelSelectMenuBuilder()
+        .setCustomId("deploy_verify_channel")
+        .setPlaceholder("Select verification channel")
+        .addChannelTypes(ChannelType.GuildText)
+        .setMinValues(1)
+        .setMaxValues(1)
+    ),
+  };
 }
 
 export async function registerPanelCommands(client: Client) {
@@ -114,7 +146,14 @@ export async function registerPanelCommands(client: Client) {
     }
 
     if (interaction.isButton()) {
-      await handleButtonInteraction(interaction);
+      const panelIds = [
+        "panel_open_verify", "panel_open_pvs", "panel_open_ctp", "panel_deploy_verify",
+        "vp_save", "vp_reset", "pp_save", "pp_reset",
+        "cp_open_details", "cp_save", "cp_reset",
+      ];
+      if (panelIds.includes(interaction.customId)) {
+        await handleButtonInteraction(interaction);
+      }
       return;
     }
 
@@ -128,9 +167,12 @@ export async function registerPanelCommands(client: Client) {
       return;
     }
 
-    if (interaction.isModalSubmit()) {
-      await handleModalSubmit(interaction);
-      return;
+    if (interaction.isModalSubmit() && interaction.customId === "cp_details_modal") {
+      try {
+        await handleCtpDetailsModalSubmit(interaction);
+      } catch (err) {
+        console.error("CTP modal error:", err);
+      }
     }
   });
 }
@@ -138,17 +180,19 @@ export async function registerPanelCommands(client: Client) {
 async function handlePanelCommand(interaction: ChatInputCommandInteraction) {
   const member = interaction.guild!.members.cache.get(interaction.user.id);
   if (!member?.permissions.has(PermissionsBitField.Flags.Administrator)) {
-    await interaction.reply({ content: "You need Administrator permission to use this.", ephemeral: true });
+    await interaction.reply({
+      content: "You need Administrator permission to use this.",
+      ephemeral: true,
+    });
     return;
   }
 
-  const { embed, row } = buildMainPanel();
-  await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
+  const { embed, rows } = buildMainPanel();
+  await interaction.reply({ embeds: [embed], components: rows, ephemeral: true });
 }
 
 async function handleButtonInteraction(interaction: ButtonInteraction) {
   const { customId } = interaction;
-
   try {
     if (customId === "panel_open_verify") {
       await openVerifyPanel(interaction);
@@ -156,6 +200,9 @@ async function handleButtonInteraction(interaction: ButtonInteraction) {
       await openPvsPanel(interaction);
     } else if (customId === "panel_open_ctp") {
       await openCtpPanel(interaction);
+    } else if (customId === "panel_deploy_verify") {
+      const { embed, row } = buildDeployChannelSelect();
+      await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
     } else if (customId === "vp_save") {
       await handleVerifyPanelSave(interaction);
     } else if (customId === "vp_reset") {
@@ -192,7 +239,31 @@ async function handleRoleSelectInteraction(interaction: RoleSelectMenuInteractio
 async function handleChannelSelectInteraction(interaction: ChannelSelectMenuInteraction) {
   const { customId } = interaction;
   try {
-    if (customId.startsWith("vp_")) {
+    if (customId === "deploy_verify_channel") {
+      const channelId = interaction.values[0];
+      const channel = interaction.guild!.channels.cache.get(channelId) as TextChannel | undefined;
+
+      if (!channel || channel.type !== ChannelType.GuildText) {
+        await interaction.reply({ content: "Invalid channel selected.", ephemeral: true });
+        return;
+      }
+
+      await deployVerificationPanel(channel);
+
+      await interaction.update({
+        embeds: [
+          new EmbedBuilder()
+            .setColor(0x2ecc71)
+            .setTitle("✅ Verification Panel Posted!")
+            .setDescription(
+              `The verification panel has been posted in <#${channelId}>.\n\n` +
+              "Members can now click **Start Verification** to submit their answers."
+            )
+            .setFooter({ text: "Make sure new members can see this channel." }),
+        ],
+        components: [],
+      });
+    } else if (customId.startsWith("vp_")) {
       await handleVerifyPanelSelect(interaction);
     } else if (customId.startsWith("pp_")) {
       await handlePvsPanelSelect(interaction);
@@ -201,15 +272,5 @@ async function handleChannelSelectInteraction(interaction: ChannelSelectMenuInte
     }
   } catch (err) {
     console.error("Panel channel select error:", err);
-  }
-}
-
-async function handleModalSubmit(interaction: ModalSubmitInteraction) {
-  try {
-    if (interaction.customId === "cp_details_modal") {
-      await handleCtpDetailsModalSubmit(interaction);
-    }
-  } catch (err) {
-    console.error("Panel modal submit error:", err);
   }
 }
