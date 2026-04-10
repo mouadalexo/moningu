@@ -21,6 +21,7 @@ const MAX_OPTIONS = 20;
 const pendingOptions   = new Map(); // `${userId}:${catId}` → { label, roleId, emoji? }
 const pendingEmojiEdit = new Map(); // `${userId}:${catId}:${optIndex}` → emoji
 const pendingCatIcon   = new Map(); // `${userId}:${catId}` → emoji
+const pendingRenames   = new Map(); // `rename_opt:${userId}:${catId}:${idx}` or `rename_cat:${userId}:${catId}` → newName
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -240,12 +241,17 @@ function categoryEditorRows(catId, cat) {
         .setLabel('🎨 Option Emoji')
         .setStyle(ButtonStyle.Secondary)
         .setDisabled(optCount === 0),
+      new ButtonBuilder()
+        .setCustomId(`set_rename_option:${catId}`)
+        .setLabel('✏️ Rename Opt')
+        .setStyle(ButtonStyle.Primary)
+        .setDisabled(optCount === 0),
     ),
     // Row 2 — Category settings + navigation
     new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId(`set_rename_cat:${catId}`)
-        .setLabel('✏️ Rename')
+        .setLabel('✏️ Rename Cat')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
         .setCustomId(`set_set_limit:${catId}`)
@@ -969,6 +975,105 @@ async function handleSetButton(interaction, dynamicRoles, saveStorage) {
     return;
   }
 
+
+  // ── Rename option → pick from list ──
+  if (id.startsWith('set_rename_option:')) {
+    const catId = id.slice('set_rename_option:'.length);
+    const cat = categories.find(c => c.id === catId);
+
+    if (!cat || cat.options.length === 0) {
+      await interaction.reply({ content: 'No options to rename.', ephemeral: true });
+      return;
+    }
+
+    const select = new StringSelectMenuBuilder()
+      .setCustomId(`set_select_rename_option:${catId}`)
+      .setPlaceholder('Select an option to rename...')
+      .addOptions(
+        cat.options.map((opt, i) =>
+          new StringSelectMenuOptionBuilder()
+            .setLabel(`${i + 1}. ${opt.label}`)
+            .setValue(String(i))
+            .setDescription(`Current name: ${opt.label.slice(0, 50)}`)
+        )
+      );
+
+    await interaction.update({
+      embeds: [new EmbedBuilder()
+        .setTitle(`✏️ Rename Option — ${cat.name}`)
+        .setDescription('Select which option you want to rename:')
+        .setColor(0x5865F2)],
+      components: [
+        new ActionRowBuilder().addComponents(select),
+        new ActionRowBuilder().addComponents(
+          new ButtonBuilder().setCustomId(`set_back_edit:${catId}`).setLabel('← Back').setStyle(ButtonStyle.Secondary)
+        ),
+      ],
+    });
+    return;
+  }
+
+  // ── Confirm rename option (after confirmation embed) ──
+  if (id.startsWith('set_confirm_rename_opt:')) {
+    const rest = id.slice('set_confirm_rename_opt:'.length);
+    const lastColon = rest.lastIndexOf(':');
+    const catId = rest.slice(0, lastColon);
+    const optIndex = parseInt(rest.slice(lastColon + 1));
+    const cat = categories.find(c => c.id === catId);
+    const opt = cat?.options[optIndex];
+
+    const pendingKey = `rename_opt:${interaction.user.id}:${catId}:${optIndex}`;
+    const newName = pendingRenames.get(pendingKey);
+
+    if (!newName || !opt) {
+      await interaction.update({
+        embeds: [categoryEditorEmbed(cat, '❌ Session expired. Please try renaming again.')],
+        components: categoryEditorRows(catId, cat),
+      });
+      return;
+    }
+
+    pendingRenames.delete(pendingKey);
+    const oldName = opt.label;
+    opt.label = newName;
+    saveStorage();
+
+    await interaction.update({
+      embeds: [categoryEditorEmbed(cat, `✅ Renamed option **"${oldName}"** → **"${newName}"**.`)],
+      components: categoryEditorRows(catId, cat),
+    });
+    return;
+  }
+
+  // ── Confirm rename category (after confirmation embed) ──
+  if (id.startsWith('set_confirm_rename_cat:')) {
+    const catId = id.slice('set_confirm_rename_cat:'.length);
+    const cat = categories.find(c => c.id === catId);
+
+    const pendingKey = `rename_cat:${interaction.user.id}:${catId}`;
+    const newName = pendingRenames.get(pendingKey);
+
+    if (!newName || !cat) {
+      await interaction.update({
+        embeds: [categoryEditorEmbed(cat, '❌ Session expired. Please try renaming again.')],
+        components: categoryEditorRows(catId, cat),
+      });
+      return;
+    }
+
+    pendingRenames.delete(pendingKey);
+    const oldName = cat.name;
+    cat.name = newName;
+    cat.placeholder = newName;
+    saveStorage();
+
+    await interaction.update({
+      embeds: [categoryEditorEmbed(cat, `✅ Renamed category **"${oldName}"** → **"${newName}"**.`)],
+      components: categoryEditorRows(catId, cat),
+    });
+    return;
+  }
+
   // ── Rename category → show modal ──
   if (id.startsWith('set_rename_cat:')) {
     const catId = id.slice('set_rename_cat:'.length);
@@ -1389,6 +1494,34 @@ async function handleSetSelect(interaction, dynamicRoles, saveStorage) {
     return;
   }
 
+
+  // ── Select which option to rename → show modal ──
+  if (id.startsWith('set_select_rename_option:')) {
+    const catId = id.slice('set_select_rename_option:'.length);
+    const cat = categories.find(c => c.id === catId);
+    const optIndex = parseInt(interaction.values[0]);
+    const opt = cat.options[optIndex];
+
+    const modal = new ModalBuilder()
+      .setCustomId(`modal_rename_opt:${catId}:${optIndex}`)
+      .setTitle(`Rename: ${opt.label.slice(0, 30)}`);
+
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(
+        new TextInputBuilder()
+          .setCustomId('opt_new_name')
+          .setLabel('New Option Name')
+          .setStyle(TextInputStyle.Short)
+          .setMaxLength(50)
+          .setRequired(true)
+          .setValue(opt.label)
+      ),
+    );
+
+    await interaction.showModal(modal);
+    return;
+  }
+
   // ── Select which option to change emoji for ──
   if (id.startsWith('set_select_change_emoji:')) {
     const catId = id.slice('set_select_change_emoji:'.length);
@@ -1663,7 +1796,7 @@ async function handleSetModal(interaction, dynamicRoles, saveStorage) {
     return;
   }
 
-  // ── Rename category modal ──
+  // ── Rename category modal → show confirmation ──
   if (id.startsWith('modal_rename_cat:')) {
     const catId = id.slice('modal_rename_cat:'.length);
     const cat = categories.find(c => c.id === catId);
@@ -1674,14 +1807,65 @@ async function handleSetModal(interaction, dynamicRoles, saveStorage) {
       return;
     }
 
-    const oldName = cat.name;
-    cat.name = newName;
-    cat.placeholder = newName;
-    saveStorage();
+    const pendingKey = `rename_cat:${interaction.user.id}:${catId}`;
+    pendingRenames.set(pendingKey, newName);
 
     await interaction.update({
-      embeds: [categoryEditorEmbed(cat, `✅ Renamed **${oldName}** → **${newName}**.`)],
-      components: categoryEditorRows(catId, cat),
+      embeds: [new EmbedBuilder()
+        .setTitle('⚠️ Confirm Category Rename')
+        .setDescription(`Rename category **"${cat.name}"** → **"${newName}"**?`)
+        .setColor(0xFEE75C)],
+      components: [
+        new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setCustomId(`set_confirm_rename_cat:${catId}`)
+            .setLabel('✅ Confirm')
+            .setStyle(ButtonStyle.Success),
+          new ButtonBuilder()
+            .setCustomId(`set_back_edit:${catId}`)
+            .setLabel('✕ Cancel')
+            .setStyle(ButtonStyle.Danger),
+        ),
+      ],
+    });
+    return;
+  }
+
+  // ── Rename option modal → show confirmation ──
+  if (id.startsWith('modal_rename_opt:')) {
+    const rest = id.slice('modal_rename_opt:'.length);
+    const lastColon = rest.lastIndexOf(':');
+    const catId = rest.slice(0, lastColon);
+    const optIndex = parseInt(rest.slice(lastColon + 1));
+    const cat = categories.find(c => c.id === catId);
+    const opt = cat?.options[optIndex];
+
+    const newName = interaction.fields.getTextInputValue('opt_new_name').trim();
+    if (!newName) {
+      await interaction.reply({ content: '❌ Option name cannot be empty.', ephemeral: true });
+      return;
+    }
+
+    const pendingKey = `rename_opt:${interaction.user.id}:${catId}:${optIndex}`;
+    pendingRenames.set(pendingKey, newName);
+
+    await interaction.update({
+      embeds: [new EmbedBuilder()
+        .setTitle('⚠️ Confirm Option Rename')
+        .setDescription(`Rename option **"${opt.label}"** → **"${newName}"**?`)
+        .setColor(0xFEE75C)],
+      components: [
+        new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setCustomId(`set_confirm_rename_opt:${catId}:${optIndex}`)
+            .setLabel('✅ Confirm')
+            .setStyle(ButtonStyle.Success),
+          new ButtonBuilder()
+            .setCustomId(`set_back_edit:${catId}`)
+            .setLabel('✕ Cancel')
+            .setStyle(ButtonStyle.Danger),
+        ),
+      ],
     });
     return;
   }
