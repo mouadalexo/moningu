@@ -1425,7 +1425,8 @@ async function handleSetSelect(interaction, dynamicRoles, saveStorage) {
     const catId = interaction.values[0];
     const cat = categories.find(c => c.id === catId);
 
-    dynamicRoles.categories = categories.filter(c => c.id !== catId);
+    const _removeIdx = dynamicRoles.categories.findIndex(c => c.id === catId);
+    if (_removeIdx !== -1) dynamicRoles.categories.splice(_removeIdx, 1);
     saveStorage();
 
     await interaction.update({
