@@ -287,7 +287,7 @@ client.once('clientReady', async () => {
   const commands = [
     {
       name: 'set',
-      description: 'Manage the Night Stars reaction role panel',
+      description: 'Manage the Moningu reaction role panel',
       default_member_permissions: String(PermissionFlagsBits.Administrator),
     },
     {

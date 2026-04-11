@@ -1,0 +1,894 @@
+{
+  "categories": [
+    {
+      "id": "mobile_games",
+      "name": "📱   MOBILE GAMES",
+      "placeholder": "📱   MOBILE GAMES",
+      "icon": null,
+      "roleLimit": null,
+      "options": [
+        {
+          "label": "PUBG Mobile",
+          "emoji": {
+            "animated": false,
+            "name": "pubgmobile",
+            "id": "1487438947616555038"
+          },
+          "roleId": "1214980004254064690"
+        },
+        {
+          "label": "Call of Duty Mobile",
+          "emoji": {
+            "animated": false,
+            "name": "callofduty",
+            "id": "1487438870894215268"
+          },
+          "roleId": "1332828684821987361"
+        },
+        {
+          "label": "Stumble Guys",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_294",
+            "id": "1487519423693717654"
+          },
+          "roleId": "1214978295393951744"
+        },
+        {
+          "label": "Clash Royale",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_289",
+            "id": "1487443446670295090"
+          },
+          "roleId": "1419065531641626705"
+        },
+        {
+          "label": "Among Us",
+          "emoji": {
+            "animated": false,
+            "name": "amongus",
+            "id": "1487439503466561599"
+          },
+          "roleId": "1080982657179058207"
+        },
+        {
+          "label": "eFootball Mobile",
+          "emoji": {
+            "animated": false,
+            "name": "efootball",
+            "id": "1487439069649567977"
+          },
+          "roleId": "1214979557938040882"
+        },
+        {
+          "label": "Free Fire",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_290",
+            "id": "1487516026248888480"
+          },
+          "roleId": "1214980376779427872"
+        },
+        {
+          "label": "Mobile Legends",
+          "emoji": {
+            "animated": false,
+            "name": "mobilelegend",
+            "id": "1487438714345885726"
+          },
+          "roleId": "1348159322831716454"
+        },
+        {
+          "label": "Brawl Stars",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_292",
+            "id": "1487518295748772052"
+          },
+          "roleId": "1460772348558053477"
+        },
+        {
+          "label": "Clash of Clans",
+          "emoji": {
+            "animated": false,
+            "name": "clashroyal",
+            "id": "1487440405095121099"
+          },
+          "roleId": "1460769107485130838"
+        },
+        {
+          "label": "Genshin Impact",
+          "emoji": {
+            "animated": false,
+            "name": "genshiimpact",
+            "id": "1487439201455575101"
+          },
+          "roleId": "1460786315380527146"
+        },
+        {
+          "label": "8 Ball Pool",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_295",
+            "id": "1487520148507328692"
+          },
+          "roleId": "1487375767892398143"
+        },
+        {
+          "label": "Honor of Kings",
+          "emoji": {
+            "animated": false,
+            "name": "homorofkings",
+            "id": "1487439315209420902"
+          },
+          "roleId": "1487383345179525150"
+        },
+        {
+          "label": "Rise of Kingdoms",
+          "emoji": {
+            "animated": false,
+            "name": "reseofkingpms",
+            "id": "1487517046005825786"
+          },
+          "roleId": "1487375769226444850"
+        }
+      ]
+    },
+    {
+      "id": "pc_games",
+      "name": "💻   PC GAMES",
+      "placeholder": "💻   PC GAMES",
+      "icon": null,
+      "roleLimit": null,
+      "options": [
+        {
+          "label": "GTA V",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_303",
+            "id": "1487525636691198124"
+          },
+          "roleId": "1214978609614430208"
+        },
+        {
+          "label": "Minecraft",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_299",
+            "id": "1487524245713059880"
+          },
+          "roleId": "1214980290452258836"
+        },
+        {
+          "label": "Roblox",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_309",
+            "id": "1487526916536795308"
+          },
+          "roleId": "1214980597332709406"
+        },
+        {
+          "label": "Valorant",
+          "emoji": {
+            "animated": false,
+            "name": "Valorant",
+            "id": "1487523909422022939"
+          },
+          "roleId": "1214978928297648178"
+        },
+        {
+          "label": "Fortnite",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_313",
+            "id": "1487530289247813843"
+          },
+          "roleId": "1214980071476170753"
+        },
+        {
+          "label": "League of Legends",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_300",
+            "id": "1487524586751787020"
+          },
+          "roleId": "1487388230901825628"
+        },
+        {
+          "label": "EA FC 25",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_312",
+            "id": "1487528604639428708"
+          },
+          "roleId": "1487388232525021264"
+        },
+        {
+          "label": "Apex Legends",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_316",
+            "id": "1487531011041529866"
+          },
+          "roleId": "1487383345808670781"
+        },
+        {
+          "label": "Counter-Strike 2",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_301",
+            "id": "1487524982169931846"
+          },
+          "roleId": "1487388231707394058"
+        },
+        {
+          "label": "Dota 2",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_305",
+            "id": "1487526081190822079"
+          },
+          "roleId": "1487383346379096204"
+        },
+        {
+          "label": "World of Warcraft",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_298",
+            "id": "1487523162332856351"
+          },
+          "roleId": "1487383346958045235"
+        },
+        {
+          "label": "Overwatch 2",
+          "emoji": {
+            "animated": false,
+            "name": "Overwatch2",
+            "id": "1487438752879218869"
+          },
+          "roleId": "1487383347616546918"
+        },
+        {
+          "label": "Elden Ring",
+          "emoji": {
+            "animated": false,
+            "name": "eldinring",
+            "id": "1487439174775865465"
+          },
+          "roleId": "1487383349373964348"
+        },
+        {
+          "label": "Cyberpunk 2077",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_317",
+            "id": "1487531288813633567"
+          },
+          "roleId": "1487383350258831360"
+        },
+        {
+          "label": "The Sims 4",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_320",
+            "id": "1487532216593682473"
+          },
+          "roleId": "1487383350829383730"
+        },
+        {
+          "label": "Rocket League",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_313",
+            "id": "1487529930081435820"
+          },
+          "roleId": "1487375771780775968"
+        },
+        {
+          "label": "Warzone",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_318",
+            "id": "1487531550584213614"
+          },
+          "roleId": "1487375772732756048"
+        },
+        {
+          "label": "Rainbow Six Siege",
+          "emoji": {
+            "animated": false,
+            "name": "rainbow6sieg",
+            "id": "1487438927551004794"
+          },
+          "roleId": "1487375773420617849"
+        },
+        {
+          "label": "Rust",
+          "emoji": {
+            "animated": false,
+            "name": "rust",
+            "id": "1487438797120475296"
+          },
+          "roleId": "1487375774494228634"
+        },
+        {
+          "label": "Lost Ark",
+          "emoji": {
+            "animated": false,
+            "name": "lostark",
+            "id": "1487440846260408473"
+          },
+          "roleId": "1487375775257858079"
+        },
+        {
+          "label": "Dead by Daylight",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_319",
+            "id": "1487531829027278930"
+          },
+          "roleId": "1487375776343920772"
+        },
+        {
+          "label": "Escape from Tarkov",
+          "emoji": {
+            "animated": false,
+            "name": "escapefrom",
+            "id": "1487438736626024639"
+          },
+          "roleId": "1487375777157615719"
+        },
+        {
+          "label": "Diablo IV",
+          "emoji": {
+            "animated": false,
+            "name": "dialblo6",
+            "id": "1487438655651053818"
+          },
+          "roleId": "1487375781830332526"
+        }
+      ]
+    },
+    {
+      "id": "about_you",
+      "name": "🎲   BOARD GAMES",
+      "placeholder": "🎲   BOARD GAMES",
+      "icon": null,
+      "roleLimit": null,
+      "options": [
+        {
+          "label": "Parchisi",
+          "emoji": {
+            "animated": false,
+            "name": "parchisi",
+            "id": "1487438972786577629"
+          },
+          "roleId": "1214979314773139527"
+        },
+        {
+          "label": "Chess",
+          "emoji": {
+            "animated": false,
+            "name": "Chess",
+            "id": "1487439325447721121"
+          },
+          "roleId": "1419065279366824137"
+        },
+        {
+          "label": "Monopoly",
+          "emoji": {
+            "animated": false,
+            "name": "monopoly",
+            "id": "1489330720857002064"
+          },
+          "roleId": "1314727221868630147"
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "name": "🧐   STATUS",
+      "placeholder": "🧐   STATUS",
+      "icon": null,
+      "roleLimit": null,
+      "options": [
+        {
+          "label": "Single",
+          "emoji": {
+            "animated": false,
+            "name": "emoji_103",
+            "id": "1335194208809779212"
+          },
+          "roleId": "1335511994681524307"
+        },
+        {
+          "label": "Taken",
+          "emoji": null,
+          "roleId": "1335512029254914100"
+        },
+        {
+          "label": "Complicated",
+          "emoji": {
+            "animated": false,
+            "name": "MAJ",
+            "id": "1469090678691725575"
+          },
+          "roleId": "1335838281950167143"
+        },
+        {
+          "label": "Married",
+          "emoji": {
+            "animated": false,
+            "name": "Handcuffed",
+            "id": "1469120026320699392"
+          },
+          "roleId": "1487383352410505349"
+        }
+      ]
+    }
+  ],
+  "logChannelId": null,
+  "requiredRoleId": null,
+  "managerRoleId": null,
+  "customPanels": [],
+  "panels": [
+    {
+      "id": "panel1",
+      "name": "Panel 1",
+      "categories": [
+        {
+          "id": "mobile_games",
+          "name": "📱   MOBILE GAMES",
+          "placeholder": "📱   MOBILE GAMES",
+          "icon": null,
+          "roleLimit": null,
+          "options": [
+            {
+              "label": "PUBG Mobile",
+              "emoji": {
+                "animated": false,
+                "name": "pubgmobile",
+                "id": "1487438947616555038"
+              },
+              "roleId": "1214980004254064690"
+            },
+            {
+              "label": "Call of Duty Mobile",
+              "emoji": {
+                "animated": false,
+                "name": "callofduty",
+                "id": "1487438870894215268"
+              },
+              "roleId": "1332828684821987361"
+            },
+            {
+              "label": "Stumble Guys",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_294",
+                "id": "1487519423693717654"
+              },
+              "roleId": "1214978295393951744"
+            },
+            {
+              "label": "Clash Royale",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_289",
+                "id": "1487443446670295090"
+              },
+              "roleId": "1419065531641626705"
+            },
+            {
+              "label": "Among Us",
+              "emoji": {
+                "animated": false,
+                "name": "amongus",
+                "id": "1487439503466561599"
+              },
+              "roleId": "1080982657179058207"
+            },
+            {
+              "label": "eFootball Mobile",
+              "emoji": {
+                "animated": false,
+                "name": "efootball",
+                "id": "1487439069649567977"
+              },
+              "roleId": "1214979557938040882"
+            },
+            {
+              "label": "Free Fire",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_290",
+                "id": "1487516026248888480"
+              },
+              "roleId": "1214980376779427872"
+            },
+            {
+              "label": "Mobile Legends",
+              "emoji": {
+                "animated": false,
+                "name": "mobilelegend",
+                "id": "1487438714345885726"
+              },
+              "roleId": "1348159322831716454"
+            },
+            {
+              "label": "Brawl Stars",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_292",
+                "id": "1487518295748772052"
+              },
+              "roleId": "1460772348558053477"
+            },
+            {
+              "label": "Clash of Clans",
+              "emoji": {
+                "animated": false,
+                "name": "clashroyal",
+                "id": "1487440405095121099"
+              },
+              "roleId": "1460769107485130838"
+            },
+            {
+              "label": "Genshin Impact",
+              "emoji": {
+                "animated": false,
+                "name": "genshiimpact",
+                "id": "1487439201455575101"
+              },
+              "roleId": "1460786315380527146"
+            },
+            {
+              "label": "8 Ball Pool",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_295",
+                "id": "1487520148507328692"
+              },
+              "roleId": "1487375767892398143"
+            },
+            {
+              "label": "Honor of Kings",
+              "emoji": {
+                "animated": false,
+                "name": "homorofkings",
+                "id": "1487439315209420902"
+              },
+              "roleId": "1487383345179525150"
+            },
+            {
+              "label": "Rise of Kingdoms",
+              "emoji": {
+                "animated": false,
+                "name": "reseofkingpms",
+                "id": "1487517046005825786"
+              },
+              "roleId": "1487375769226444850"
+            }
+          ]
+        },
+        {
+          "id": "pc_games",
+          "name": "💻   PC GAMES",
+          "placeholder": "💻   PC GAMES",
+          "icon": null,
+          "roleLimit": null,
+          "options": [
+            {
+              "label": "GTA V",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_303",
+                "id": "1487525636691198124"
+              },
+              "roleId": "1214978609614430208"
+            },
+            {
+              "label": "Minecraft",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_299",
+                "id": "1487524245713059880"
+              },
+              "roleId": "1214980290452258836"
+            },
+            {
+              "label": "Roblox",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_309",
+                "id": "1487526916536795308"
+              },
+              "roleId": "1214980597332709406"
+            },
+            {
+              "label": "Valorant",
+              "emoji": {
+                "animated": false,
+                "name": "Valorant",
+                "id": "1487523909422022939"
+              },
+              "roleId": "1214978928297648178"
+            },
+            {
+              "label": "Fortnite",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_313",
+                "id": "1487530289247813843"
+              },
+              "roleId": "1214980071476170753"
+            },
+            {
+              "label": "League of Legends",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_300",
+                "id": "1487524586751787020"
+              },
+              "roleId": "1487388230901825628"
+            },
+            {
+              "label": "EA FC 25",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_312",
+                "id": "1487528604639428708"
+              },
+              "roleId": "1487388232525021264"
+            },
+            {
+              "label": "Apex Legends",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_316",
+                "id": "1487531011041529866"
+              },
+              "roleId": "1487383345808670781"
+            },
+            {
+              "label": "Counter-Strike 2",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_301",
+                "id": "1487524982169931846"
+              },
+              "roleId": "1487388231707394058"
+            },
+            {
+              "label": "Dota 2",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_305",
+                "id": "1487526081190822079"
+              },
+              "roleId": "1487383346379096204"
+            },
+            {
+              "label": "World of Warcraft",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_298",
+                "id": "1487523162332856351"
+              },
+              "roleId": "1487383346958045235"
+            },
+            {
+              "label": "Overwatch 2",
+              "emoji": {
+                "animated": false,
+                "name": "Overwatch2",
+                "id": "1487438752879218869"
+              },
+              "roleId": "1487383347616546918"
+            },
+            {
+              "label": "Elden Ring",
+              "emoji": {
+                "animated": false,
+                "name": "eldinring",
+                "id": "1487439174775865465"
+              },
+              "roleId": "1487383349373964348"
+            },
+            {
+              "label": "Cyberpunk 2077",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_317",
+                "id": "1487531288813633567"
+              },
+              "roleId": "1487383350258831360"
+            },
+            {
+              "label": "The Sims 4",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_320",
+                "id": "1487532216593682473"
+              },
+              "roleId": "1487383350829383730"
+            },
+            {
+              "label": "Rocket League",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_313",
+                "id": "1487529930081435820"
+              },
+              "roleId": "1487375771780775968"
+            },
+            {
+              "label": "Warzone",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_318",
+                "id": "1487531550584213614"
+              },
+              "roleId": "1487375772732756048"
+            },
+            {
+              "label": "Rainbow Six Siege",
+              "emoji": {
+                "animated": false,
+                "name": "rainbow6sieg",
+                "id": "1487438927551004794"
+              },
+              "roleId": "1487375773420617849"
+            },
+            {
+              "label": "Rust",
+              "emoji": {
+                "animated": false,
+                "name": "rust",
+                "id": "1487438797120475296"
+              },
+              "roleId": "1487375774494228634"
+            },
+            {
+              "label": "Lost Ark",
+              "emoji": {
+                "animated": false,
+                "name": "lostark",
+                "id": "1487440846260408473"
+              },
+              "roleId": "1487375775257858079"
+            },
+            {
+              "label": "Dead by Daylight",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_319",
+                "id": "1487531829027278930"
+              },
+              "roleId": "1487375776343920772"
+            },
+            {
+              "label": "Escape from Tarkov",
+              "emoji": {
+                "animated": false,
+                "name": "escapefrom",
+                "id": "1487438736626024639"
+              },
+              "roleId": "1487375777157615719"
+            },
+            {
+              "label": "Diablo IV",
+              "emoji": {
+                "animated": false,
+                "name": "dialblo6",
+                "id": "1487438655651053818"
+              },
+              "roleId": "1487375781830332526"
+            }
+          ]
+        },
+        {
+          "id": "about_you",
+          "name": "🎲   BOARD GAMES",
+          "placeholder": "🎲   BOARD GAMES",
+          "icon": null,
+          "roleLimit": null,
+          "options": [
+            {
+              "label": "Parchisi",
+              "emoji": {
+                "animated": false,
+                "name": "parchisi",
+                "id": "1487438972786577629"
+              },
+              "roleId": "1214979314773139527"
+            },
+            {
+              "label": "Chess",
+              "emoji": {
+                "animated": false,
+                "name": "Chess",
+                "id": "1487439325447721121"
+              },
+              "roleId": "1419065279366824137"
+            },
+            {
+              "label": "Monopoly",
+              "emoji": {
+                "animated": false,
+                "name": "monopoly",
+                "id": "1489330720857002064"
+              },
+              "roleId": "1314727221868630147"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "name": "🧐   STATUS",
+          "placeholder": "🧐   STATUS",
+          "icon": null,
+          "roleLimit": null,
+          "options": [
+            {
+              "label": "Single",
+              "emoji": {
+                "animated": false,
+                "name": "emoji_103",
+                "id": "1335194208809779212"
+              },
+              "roleId": "1335511994681524307"
+            },
+            {
+              "label": "Taken",
+              "emoji": null,
+              "roleId": "1335512029254914100"
+            },
+            {
+              "label": "Complicated",
+              "emoji": {
+                "animated": false,
+                "name": "MAJ",
+                "id": "1469090678691725575"
+              },
+              "roleId": "1335838281950167143"
+            },
+            {
+              "label": "Married",
+              "emoji": {
+                "animated": false,
+                "name": "Handcuffed",
+                "id": "1469120026320699392"
+              },
+              "roleId": "1487383352410505349"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-04-10T17:44:14.137Z"
+    },
+    {
+      "id": "7335aeed-3b5d-4ccf-98ef-1377eae5754a",
+      "name": "Panel 2",
+      "categories": [
+        {
+          "id": "cat_1775885873555",
+          "name": "Category 1",
+          "placeholder": "Pick a role",
+          "icon": null,
+          "roleLimit": null,
+          "options": [
+            {
+              "label": "Option 1",
+              "emoji": null,
+              "roleId": null
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-04-11T05:37:53.555Z"
+    }
+  ]
+}
