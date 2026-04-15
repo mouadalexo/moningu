@@ -86,7 +86,7 @@ async function handlePanelInteraction(interaction, dynamicRoles) {
             .setColor(0xe74c3c)
             .setDescription(`<@${member.id}> has been removed from the **${opt.label}** role!`),
         ],
-        ephemeral: false,
+        ephemeral: true,
       });
       setTimeout(() => msg.delete().catch(() => {}), 5000);
     } else {
@@ -111,7 +111,7 @@ async function handlePanelInteraction(interaction, dynamicRoles) {
             .setColor(0x2ecc71)
             .setDescription(`<@${member.id}> has been given the **${opt.label}** role!`),
         ],
-        ephemeral: false,
+        ephemeral: true,
       });
       setTimeout(() => msg.delete().catch(() => {}), 5000);
     }
