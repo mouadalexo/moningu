@@ -7,6 +7,13 @@ const {
 } = require('discord.js');
 const { slugify, buildPanel } = require('../utils/panel.js');
 
+function deleteTemporaryFollowUp(interaction, message, delayMs = 5000) {
+  setTimeout(() => {
+    interaction.webhook.deleteMessage(message.id)
+      .catch(() => message.delete().catch(() => {}));
+  }, delayMs);
+}
+
 async function handlePanelInteraction(interaction, dynamicRoles) {
   const { customId, values, member, guild } = interaction;
 
@@ -88,7 +95,7 @@ async function handlePanelInteraction(interaction, dynamicRoles) {
         ],
         ephemeral: true,
       });
-      setTimeout(() => msg.delete().catch(() => {}), 5000);
+      deleteTemporaryFollowUp(interaction, msg);
     } else {
       if (cat.roleLimit) {
         const catRoleIds = cat.options.filter(o => o.roleId).map(o => o.roleId);
@@ -113,7 +120,7 @@ async function handlePanelInteraction(interaction, dynamicRoles) {
         ],
         ephemeral: true,
       });
-      setTimeout(() => msg.delete().catch(() => {}), 5000);
+      deleteTemporaryFollowUp(interaction, msg);
     }
 
     const panelData = await buildPanel(dynamicRoles, guild);
